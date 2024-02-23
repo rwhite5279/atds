@@ -63,3 +63,35 @@ class Queue(object):
     
     def __repr__(self):
         return str(self.queue)
+
+class Deque(object):
+    """Describes a double-ended queue, with index 0
+    the "front" of the Deque and index -1 at the rear.
+    """
+
+    def __init__(self):
+        self.deque = []
+    
+    def add_front(self, item):
+        self.deque.insert(0, item)
+
+    def add_rear(self, item):
+        self.deque.append(item)
+
+    def remove_front(self):
+        return self.deque.pop(0)
+    
+    def remove_rear(self):
+        return self.deque.pop()
+    
+    def size(self):
+        return len(self.deque)
+    
+    def is_empty(self):
+        return len(self.deque) == 0
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()
