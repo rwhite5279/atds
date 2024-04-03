@@ -283,7 +283,48 @@ class UnorderedListStack(object):
 
     def is_empty(self):
         return self.ul.is_empty()
-    
+
+class HashTable(object):
+    """Describes a hash table based on two lists, `slots` and `values`,
+    and describes putting and getting values onto that table.
+    Hash function is the mod (%) function, and collisions are handled
+    using linear probing.
+    """
+    def __init__(self, size):
+        """Create empty lists for the Map
+        """
+        self.keys = size * [None]
+        self.data = size * [None]
+        self.size = size
+
+    def put(self, key, value):
+        """Creates an entry in the hash table
+        """
+        hash_value = key % self.size        # index for key & value
+        while self.keys[hash_value] != None and self.keys[hash_value] != key:
+            hash_value += 1
+        # We're at a position where we can place the value
+        if self.keys[hash_value] == key:
+            self.data[hash_value] = value
+        else:
+            self.keys[hash_value] = key
+            self.data[hash_value] = value
+
+    def get(self, key):
+        hash_value = key % self.size
+        while self.keys[hash_value] != None and self.keys[hash_value] != key:
+            hash_value += 1
+        if self.keys[hash_value] == key:
+            return self.data[hash_value]
+        else:
+            return None
+
+    def __str__(self):
+        return "Keys:   " + str(self.keys) + "\n" + \
+               "Values: " + str(self.data)
+
+
+
 def main():
     pass
 
