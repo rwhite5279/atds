@@ -2,6 +2,7 @@
 """
 atds.py
 A collection of data types for the Advanced Topics class.
+Currently includes the Stack, Queue, and Deque classes.
 """
 __author__ = "Richard White"
 __version__ = "2026-02-12"

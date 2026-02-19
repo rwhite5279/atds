@@ -7,8 +7,8 @@ Runs a series of tests on the atds module, including looking at
     * Queue
     * Deque
 @author Richard White
-@version 2017-03-13
 """
+
 
 from atds import *
 
