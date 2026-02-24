@@ -229,6 +229,24 @@ def main():
 
     print(str(tests_passed) + "/20 tests passed on the Stack, Queue, and Deque classes") 
     
+#################################################################
+
+    print("Testing the Node class")
+    try:
+        n = Node(3.14)
+        tests_passed += 1
+        print("Test passed: node created")
+    except:
+        print("Test failed: couldn't initialize node")
+
+    try:
+        n.set_next(Node(2.71))
+        print("Test passed: set_next() called") 
+        tests_passed += 1
+    except:
+        print("Test failed: couldn't use set_next() method")
+
+ 
 
 if __name__ == "__main__":
     main()
