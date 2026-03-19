@@ -255,6 +255,22 @@ class BinarySearcher(object):
                 lower = middle + 1
         return None
 
+class BinarySearcherRecursive(object):
+    """A utility class that performs a binary search"""
+    def __init__(self):
+        pass
+    def search(self, arr: list, value: int, lower: int, upper: int) -> int:
+        if lower > upper:
+            return None
+        else:
+            middle = (lower + upper) // 2
+            if arr[middle] == value:
+                return middle
+            elif value < arr[middle]:
+                return self.search(arr, value, lower, middle - 1)
+            else:
+                return self.search(arr, value, middle + 1, upper)
+
 def main():
     pass
 
