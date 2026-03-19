@@ -238,6 +238,15 @@ class UnorderedListStack(object):
     def length(self):
         return self.ul.length()
 
+
+class LinearSearcher(object):
+    """Performs a linear search on a possible unorder list of numbers"""
+    def search(self, arr : list, target : int) -> int:
+        for i in range(len(arr)):
+            if arr[i] == target:
+                return i
+        return None
+
 class BinarySearcher(object):
     """A utility class that performs a binary search"""
     def __init__(self):
