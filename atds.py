@@ -268,21 +268,124 @@ class BinarySearcherRecursive(object):
     """A utility class that performs a binary search"""
     def __init__(self):
         pass
-    def search(self, arr: list, value: int, lower: int, upper: int) -> int:
-        if lower > upper:
+    def search(self, arr, value):
+        if len(arr) == 0:
             return None
+        middle = len(arr) //2
+        if arr[middle] == value:
+            return middle
+        elif value < arr[middle]:
+            return self.search(arr[:middle], value)
         else:
-            middle = (lower + upper) // 2
-            if arr[middle] == value:
-                return middle
-            elif value < arr[middle]:
-                return self.search(arr, value, lower, middle - 1)
-            else:
-                return self.search(arr, value, middle + 1, upper)
+            return self.search(arr[middle + 1:], value)
+
+class HashTable(object):
+    def __init__(self, m):
+        """Constructs parallel lists for our hash table"""
+        self.m = m
+        self.entries = 0
+        self.keys = m * [None]
+        self.values = m * [None]
+
+    def hash_function(self, key, m):
+        """Calculates a hashed index based
+        on the modulo hash function"""
+        return key % m
+
+    def __len__(self):
+        return self.entries
+
+    def put(self, key, value):
+        hash = self.hash_function(key, self.m) 
+        while self.keys[hash] != None and self.keys[hash] != key: 
+            hash = (hash + 1) % self.m
+        if self.keys[hash] == None:
+            self.entries += 1  # only increment for new entries
+        self.keys[hash] = key
+        self.values[hash] = value
+
+    def get(self, key):
+        hash = self.hash_function(key, self.m) 
+        while self.keys[hash] != None and self.keys[hash] != key:
+            hash = (hash + 1) % self.m
+        return self.values[hash]
+
+    def __repr__(self):
+        return str(self.keys) + "\n" + str(self.values)
+    
+class BinaryTree(object):
+    """Describes a BinaryTree, with a value and two children"""
+    def __init__(self, key):
+        self.key = key
+        self.left_child = None
+        self.right_child = None
+    def get_root_val(self):
+        return self.key
+    def set_root_val(self, new_key):
+        self.value = new_key
+    def get_left_child(self):
+        return self.left_child
+    def get_right_child(self):
+        return self.right_child
+    def insert_left(self, key):
+        new_binary_tree = BinaryTree(key)
+        new_binary_tree.left_child = self.left_child
+        self.left_child = new_binary_tree
+    def insert_right(self,key):
+        new_binary_tree = BinaryTree(key)
+        new_binary_tree.right_child = self.right_child
+        self.right_child = new_binary_tree
+    def __str__(self):
+        return "BinaryTree[key=" + str(self.key) \
+               + ",left_child=" + str(self.left_child) \
+               + ",right_child=" + str(self.right_child) + "]"
 
 def main():
-    pass
-
+    print("Testing the binary_tree_class file!")
+    bt = BinaryTree(3)
+    print("Instruction: bt = BinaryTree(3)")
+    print("Result:", bt)
+    print("Expect: BinaryTree[key=3,left_child=None,right_child=None]")
+    print()
+    bt.insert_left(4)
+    print("Instruction: bt.insert_left(t4)")
+    print("Result:", bt)
+    print("Expect: BinaryTree[key=3,left_child=BinaryTree[key=4,left_child=None,right_child=None],right_child=None]")
+    print()
+    bt.insert_left(5)
+    print("Instruction: bt.insert_left(5)")
+    print("Result:", bt)
+    print("Expect: BinaryTree[key=3,left_child=BinaryTree[key=5,left_child=BinaryTree[key=4,left_child=None,right_child=None],right_child=None],right_child=None]")
+    print()
+    bt.insert_right(6)
+    print("Instruction: bt.insert_right(6)")
+    print("Result:", bt)
+    print("Expect: BinaryTree[key=3,left_child=BinaryTree[key=5,left_child=BinaryTree[key=4,left_child=None,right_child=None],right_child=None],right_child=BinaryTree[key=6,left_child=None,right_child=None]]")
+    print()
+    bt.insert_right(7)
+    print("Instruction: bt.insert_right(7)")
+    print("Result:", bt) 
+    print("Expect: BinaryTree[key=3,left_child=BinaryTree[key=5,left_child=BinaryTree[key=4,left_child=None,right_child=None],right_child=None],right_child=BinaryTree[key=7,left_child=None,right_child=BinaryTree[key=6,left_child=None,right_child=None]]]")
+    print()
+    l = bt.get_left_child()
+    print("Instruction: l = bt.get_left_child()")
+    print("Result: l =", l)
+    print("Expect: l = BinaryTree[key=5,left_child=BinaryTree[key=4,left_child=None,right_child=None],right_child=None]")
+    print()
+    l.set_root_val(9)
+    print("Instruction: l.set_root_val(9)")
+    print("Result: l =", l)
+    print("Expect: l = BinaryTree[key=9,left_child=BinaryTree[key=4,left_child=None,right_child=None],right_child=None]")
+    print()
+    l.insert_left(11)
+    print("Instruction: l.insert_left(11)")
+    print("Result:", bt)
+    print("Expect: BinaryTree[key=3,left_child=BinaryTree[key=9,left_child=BinaryTree[key=11,left_child=BinaryTree[key=4,left_child=None,right_child=None],right_child=None],right_child=None],right_child=BinaryTree[key=7,left_child=None,right_child=BinaryTree[key=6,left_child=None,right_child=None]]]")
+    print()
+    print("Instruction: print(bt.get_right_child().get_right_child())")
+    print("Result:", bt.get_right_child().get_right_child())
+    print("Expect: BinaryTree[key=6,left_child=None,right_child=None]")    
+    
 if __name__ == "__main__":
     main()
 
