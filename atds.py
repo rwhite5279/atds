@@ -241,7 +241,7 @@ class UnorderedListStack(object):
 
 class LinearSearcher(object):
     """Performs a linear search on a possible unorder list of numbers"""
-    def search(self, arr : list, target : int) -> int:
+    def search(self, arr, target):
         for i in range(len(arr)):
             if arr[i] == target:
                 return i
@@ -322,7 +322,7 @@ class BinaryTree(object):
     def get_root_val(self):
         return self.key
     def set_root_val(self, new_key):
-        self.value = new_key
+        self.key = new_key
     def get_left_child(self):
         return self.left_child
     def get_right_child(self):

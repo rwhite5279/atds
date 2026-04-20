@@ -7,6 +7,7 @@ from atds import BinarySearcher
 
 def main():
     bs = BinarySearcher()
+    tests_passed = 0
     tests = [
         # (array, value_to_search, expected_result)
         ([1, 2, 3, 4, 7, 9, 13, 14, 20], 7, 4),
@@ -27,9 +28,10 @@ def main():
         result = bs.search(arr, value)
         if result == expected:
             print(f"PASS: {value} in {arr} -> {result}")
+            tests_passed += 1
         else:
             print(f"FAIL: {value} in {arr} -> got {result}, expected {expected}")
-
+    print(f"Tests passed: {tests_passed}/{len(tests)}")
 
 if __name__ == "__main__":
     main()
